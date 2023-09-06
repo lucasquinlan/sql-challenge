@@ -6,38 +6,46 @@ drop table dept_emp;
 drop table salaries;
 
 create table titles (
-	title_id varchar primary key,
-	title varchar
+	title_id varchar,
+	title varchar,
+	primary key (title_id)
 );
 
 create table departments (
-	dept_no varchar primary key,
-	dept_name varchar
+	dept_no varchar,
+	dept_name varchar,
+	primary key (dept_no)
 );
 
 create table employees (
-	emp_no varchar primary key,
-	emp_title_id varchar references titles(title_id),
+	emp_no varchar,
+	emp_title_id varchar,
 	birth_date date,
 	first_name varchar,
 	last_name varchar,
 	sex varchar,
-	hire_date date
+	hire_date date,
+	primary key (emp_no),
+	foreign key (emp_title_id) references titles(title_id)
 );
 
 create table dept_manager (
-	dept_no varchar references departments(dept_no),
-	emp_no varchar
+	dept_no varchar,
+	emp_no varchar,
+	foreign key (dept_no) references departments(dept_no),
+	foreign key (emp_no) references employees(emp_no)
 );
 
 
 create table dept_emp (
-	emp_no varchar references employees(emp_no),
-	dept_no varchar references departments(dept_no)
+	emp_no varchar,
+	dept_no varchar,
+	foreign key (emp_no) references employees(emp_no),
+	foreign key (dept_no) references departments(dept_no)
 );
 
 create table salaries (
-	emp_no varchar references employees(emp_no),
-	salary int
+	emp_no varchar,
+	salary int,
+	foreign key (emp_no) references employees(emp_no)
 );
-
